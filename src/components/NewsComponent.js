@@ -18,9 +18,10 @@ class News extends Component {
             items: [],
             selectedCategory: 'general',
             page: 0,
-            active: null
+            active: null,
+            isMenuOpen: false
         }
-        //this.onCategorySelected = this.onCategorySelected.bind(this);
+        this.toggleMenu = this.toggleMenu.bind(this);
     }
 
     componentDidMount() {
@@ -50,6 +51,12 @@ class News extends Component {
         this.request(this.state.selectedCategory);
     }
 
+    toggleMenu() {
+        this.setState({
+            isMenuOpen: !this.state.isMenuOpen
+        })
+    }
+
     render() {
         if(this.state.items){
             const items = this.state.items.map((item,index) =>{
@@ -59,7 +66,11 @@ class News extends Component {
             });
             return(
                 <div className="maincontainer">
-                    <Category onClick={this.onCategorySelected.bind(this)} selected={this.state.selectedCategory}/>
+                    <div className="navigation">
+                        <div className={this.state.isMenuOpen?'menu open':'menu close'} onClick={this.toggleMenu}><i className="fa fa-bars"></i> Newsapp
+                        {this.state.isMenuOpen?<i className="fa fa-times-circle"></i>:''}</div>
+                        <Category onClick={this.onCategorySelected.bind(this)} selected={this.state.selectedCategory} isMenuOpen={this.state.isMenuOpen}/>
+                    </div>
                     <div className="container">
                         <div className="content">
                             <div className="articles">

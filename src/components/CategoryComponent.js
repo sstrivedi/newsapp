@@ -4,14 +4,13 @@ const categories = ['business', 'entertainment', 'general' ,'health', 'science',
 
 function Categories(props) {
     const categoryItems = categories.map((category, index) => {
-        console.log(props.selected);
         let activeClass = (props.selected.toLowerCase() === category) ? 'active': null;
         return( 
             <li onClick={props.onClick} key={index} className={activeClass}>{category}</li>
         );
     });
     return (
-        <div className="category">
+        <div className={`category ${props.isMenuOpen? 'open': 'close'}`} >
             <ul>
                 {categoryItems}
             </ul>
